@@ -62,6 +62,38 @@ install_docker() {
     success "run docker commands."
 }
 
+install_game_clients() {
+    info "Lets install Game stuff"
+    apt install steam lutris -y
+    flatpak install flathub org.gnome.Games -y
+    flatpak install flathub com.snes9x.Snes9x -y
+    success "Game clients installed"
+}
+
+install_development_tools() {
+  flatpak install flathub postman -y
+  flatpak install flathub com.jetbrains.PyCharm-Community -y
+  flatpak install flathub com.jetbrains.WebStorm -y
+  flatpak install flathub com.jetbrains.IntelliJ-IDEA-Ultimate -y
+  flatpak install flathub com.google.AndroidStudio -y
+  flatpak install flathub cc.arduino.arduinoide -y
+  snap install google-cloud-sdk --classic
+  snap install goland --classic
+  snap install kotlin --classic
+}
+
+install_miscellaneous() {
+  apt install flatpak -y
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  
+  apt install snapd -y
+
+  flatpak install flathub com.slack.Slack -y
+  flatpak install flathub com.discordapp.Discord -y
+  snap install obs-studio
+  snap install onlyoffice-desktopeditors
+}
+
 info ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
 info ":::::::::: Setup Script For $(lsb_release -d -s) :::::::::::"
 info ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
@@ -78,8 +110,10 @@ apt update
 apt upgrade -y
 apt autoremove -y
 
+install_miscellaneous
 install_chrome
 install_docker
+install_game_clients
 
 info ""
 info ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
