@@ -50,6 +50,7 @@ install_docker() {
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     apt-key fingerprint 0EBFCD88
     add-apt-repository -y -u -s "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    apt update
     apt install docker-ce docker-compose -y
     docker run hello-world
 
@@ -71,6 +72,8 @@ install_game_clients() {
 }
 
 install_development_tools() {
+  info "Lets install Development tools"
+  apt install code -y
   flatpak install flathub postman -y
   flatpak install flathub com.jetbrains.PyCharm-Community -y
   flatpak install flathub com.jetbrains.WebStorm -y
@@ -80,6 +83,7 @@ install_development_tools() {
   snap install google-cloud-sdk --classic
   snap install goland --classic
   snap install kotlin --classic
+  success "Development tools installed"
 }
 
 install_miscellaneous() {
