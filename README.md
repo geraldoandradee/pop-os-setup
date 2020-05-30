@@ -16,3 +16,4 @@ This script performs:
 1. Update
 2. Installs Google Chrome
 3. Installs Docker
+4. Installs Visual Studio Code
