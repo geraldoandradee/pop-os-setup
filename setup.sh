@@ -54,11 +54,9 @@ install_docker() {
     apt install docker-ce docker-compose -y
     docker run hello-world
 
-    info "Type the name of your user (not root), followed by [ENTER]:"
-    read COMMON_USER
-    info "Some configurations will be applied to $COMMON_USER"
-    usermod -aG docker $COMMON_USER
-    success "Now user $COMMON_USER can perform docker commands" 
+    info "Some configurations will be applied to $USER"
+    usermod -aG docker $USER
+    success "Now user $USER can perform docker commands" 
     success "without sudo. Make sure restart user session before"
     success "run docker commands."
 }
@@ -83,6 +81,14 @@ install_development_tools() {
   snap install google-cloud-sdk --classic
   snap install goland --classic
   snap install kotlin --classic
+  
+  info "Install kubectl..."
+  snap install kubectl --classic
+  info "Install kind..."
+  curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-$(uname)-amd64
+  chmod +x ./kind
+  sudo mv kind /usr/local/bin/
+
   success "Development tools installed"
 }
 
@@ -92,8 +98,7 @@ install_miscellaneous() {
   
   apt install snapd -y
 
-  flatpak install flathub com.slack.Slack -y
-  flatpak install flathub com.discordapp.Discord -y
+  apt install slack-desktop -y
   snap install obs-studio
   snap install onlyoffice-desktopeditors
 }
@@ -118,6 +123,7 @@ install_miscellaneous
 install_chrome
 install_docker
 install_game_clients
+install_development_tools
 
 info ""
 info ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
